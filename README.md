@@ -62,7 +62,18 @@ Finally, please update your README with a brief description of your methods.
   [ ] github actions (install + pytest) (optional)
 
 
-## Completing the Assignment 
+## Methods
+
+### Forward Algorithm
+The forward algorithm computes the total probability of an observed sequence given the HMM parameters. It builds an alpha table of shape (T, N) where T is the sequence length and N is the number of hidden states. At each timestep, the probability of being in each hidden state is computed by summing over all possible previous states (weighted by their transition probabilities) and multiplying by the emission probability for the current observation. The final forward probability is the sum of the last row of the alpha table.
+
+### Viterbi Algorithm
+The Viterbi algorithm finds the most likely sequence of hidden states that produced a given observation sequence. It uses a similar dynamic programming table as the forward algorithm, but instead of summing over previous states it takes the maximum. A backpointer table tracks which previous state gave the max at each step. After filling the table, we traceback from the most probable final state to recover the full best path.
+
+### Edge Cases
+Input validation in `__init__` checks that the prior probabilities vector length matches the number of hidden states, that the transition and emission matrices have the correct shapes, and that all probability distributions sum to 1.0 (within floating-point tolerance). Empty observation sequences return 0.0 for forward and an empty list for viterbi.
+
+## Completing the Assignment
 Push your code to GitHub with passing unit tests, and submit a link to your repository [here](https://forms.gle/xw98ZVQjaJvZaAzSA)
 
 ### Grading 
